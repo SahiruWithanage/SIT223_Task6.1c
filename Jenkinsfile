@@ -4,23 +4,21 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building the code using a build automation tool like Maven or Gradle to compile and package the code.'
+                echo 'Build the code using a build automation tool like Maven or Gradle to compile and package your code.'
             }
         }
         stage('Unit and Integration Tests') {
             steps {
-                echo 'Running unit and integration tests...'
+                echo 'Run unit tests using a framework like JUnit or TestNG, and integration tests to ensure the different components work together.'
             }
             post {
                 always {
                     script {
-                        // Send email with log at the end of Unit and Integration Tests stage
                         emailext(
-                            to: 'hesh.zsg@gmail.com',  // Replace with the specified email address
+                            to: 'hesh.zsg@gmail.com',
                             subject: "Unit and Integration Tests - ${currentBuild.currentResult}",
-                            body: """<p>The Unit and Integration Tests stage has ${currentBuild.currentResult.toLowerCase()}.</p>
-                                     <p>Attached is the full console output for this stage.</p>""",
-                            attachLog: true  // Attaches the full console log
+                            body: """The Unit and Integration Tests stage was a ${currentBuild.currentResult.toLowerCase()}. Attached is the full console output for this stage.""",
+                            attachLog: true
                         )
                     }
                 }
@@ -28,23 +26,21 @@ pipeline {
         }
         stage('Code Analysis') {
             steps {
-                echo 'Analyzing the code using a tool like SonarQube.'
+                echo 'Analyze the code using a tool like SonarQube to ensure it meets industry standards.'
             }
         }
         stage('Security Scan') {
             steps {
-                echo 'Performing security scan...'
+                echo 'Perform a security scan using a tool like OWASP ZAP or Snyk to identify any vulnerabilities.'
             }
             post {
                 always {
                     script {
-                        // Send email with log at the end of Security Scan stage
                         emailext(
-                            to: 'hesh.zsg@gmail.com',  // Replace with the specified email address
+                            to: 'hesh.zsg@gmail.com',
                             subject: "Security Scan - ${currentBuild.currentResult}",
-                            body: """<p>The Security Scan stage has ${currentBuild.currentResult.toLowerCase()}.</p>
-                                     <p>Attached is the full console output for this stage.</p>""",
-                            attachLog: true  // Attaches the full console log
+                            body: """The Security Scan stage was a ${currentBuild.currentResult.toLowerCase()}. Attached is the full console output for this stage.""",
+                            attachLog: true
                         )
                     }
                 }
@@ -52,23 +48,21 @@ pipeline {
         }
         stage('Deploy to Staging') {
             steps {
-                echo 'Deploying the application to a staging server, such as an AWS EC2 instance.'
+                echo 'Deploy the application to a staging server, such as an AWS EC2 instance.'
             }
         }
         stage('Integration Tests on Staging') {
             steps {
-                echo 'Running integration tests on staging...'
+                echo 'Run integration tests on the staging environment using tools like Apache JMeter or Eggplant to ensure the application functions as expected in a production-like environment.'
             }
             post {
                 always {
                     script {
-                        // Send email with log at the end of Integration Tests on Staging stage
                         emailext(
-                            to: 'hesh.zsg@gmail.com',  // Replace with the specified email address
+                            to: 'hesh.zsg@gmail.com',
                             subject: "Integration Tests on Staging - ${currentBuild.currentResult}",
-                            body: """<p>The Integration Tests on Staging stage has ${currentBuild.currentResult.toLowerCase()}.</p>
-                                     <p>Attached is the full console output for this stage.</p>""",
-                            attachLog: true  // Attaches the full console log
+                            body: """The Integration Tests on Staging stage was a ${currentBuild.currentResult.toLowerCase()}. Attached is the full console output for this stage.""",
+                            attachLog: true
                         )
                     }
                 }
@@ -76,7 +70,7 @@ pipeline {
         }
         stage('Deploy to Production') {
             steps {
-                echo 'Deploying the application to a production server, such as an AWS EC2 instance.'
+                echo 'Deploy the application to a production server, such as an AWS EC2 instance.'
             }
         }
     }
